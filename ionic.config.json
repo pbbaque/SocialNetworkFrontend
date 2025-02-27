@@ -1,0 +1,7 @@
+{
+  "name": "SocialNetworkApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
