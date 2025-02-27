@@ -12,10 +12,8 @@ $RECYCLE.BIN/
 *.log
 log.txt
 
-
 /.sourcemaps
 /.versions
-/coverage
 
 # Ionic
 /.ionic
@@ -52,7 +50,6 @@ yarn-error.log
 !.vscode/extensions.json
 .history/*
 
-
 # Miscellaneous
 /.angular
 /.angular/cache
@@ -60,7 +57,6 @@ yarn-error.log
 /.nx
 /.nx/cache
 /connect.lock
-/coverage
 /libpeerconnection.log
 testem.log
 /typings
@@ -68,3 +64,62 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Archivos y carpetas específicas de Capacitor/Cordova
+/.capacitor
+/.cordova
+/.native-scripts
+
+# Archivos generados para Android e iOS
+/android
+/ios
+/merges
+
+# Archivos de compilación y paquetes móviles
+*.apk
+*.aab
+*.ipa
+*.app
+
+# Archivos del entorno de desarrollo de Apple (Xcode)
+*.xcuserdata
+*.xcodeproj/
+*.xcworkspace/
+
+# Archivos de almacenamiento y multimedia generados por el dispositivo
+/storage
+/DCIM
+/Pictures
+/Movies
+/Music
+/Podcasts
+/Alarms
+/Notifications
+/Ringtones
+/Download
+
+# Cachés adicionales de herramientas de desarrollo
+/.cache
+/.turbo
+/.eslintcache
+/.parcel-cache
+/.rpt2_cache/
+
+# Configuración y archivos de sistema adicionales
+._*
+.Spotlight-V100
+.Trashes
+*.AppleDouble
+.LSOverride
+Desktop.ini
+ehthumbs.db
+
+# Archivos de configuración de entornos (evitar exponer credenciales)
+/.env
+/.env.*
+/*.local
+/*.secret
+
+# Firebase (si en el futuro integras Firebase en el proyecto)
+google-services.json
+GoogleService-Info.plist
