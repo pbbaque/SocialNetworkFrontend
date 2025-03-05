@@ -4,4 +4,5 @@ export interface User {
     avatar?: string;
     email?: string;
     __v?: number;
+    password?: string;
   }

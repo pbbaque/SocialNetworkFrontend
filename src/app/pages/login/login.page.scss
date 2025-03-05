@@ -4,6 +4,10 @@
     text-align: center;
 }
 
+.login {
+    margin-top: 7rem;
+}
+
 img {
     width: 120px;
 }
@@ -20,4 +24,16 @@ img {
 
 ion-footer{
     margin-bottom: 3rem;
+
+    ion-row {
+        margin: auto 3rem;
+    }
+}
+
+ion-item {
+    margin: auto 3rem;
+}
+
+ion-label {
+    margin-right: 1rem;
 }

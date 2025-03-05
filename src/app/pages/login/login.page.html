@@ -1,99 +1,99 @@
 <ion-content>
-  <ion-grid fixed *ngIf="flag" class="main">
-      <form (ngSubmit)="login(fLogin)" #fLogin="ngForm">
-          <ion-row>
-            <ion-col>
-              <img src="/assets/avatars/av-1.png" />
-            </ion-col>
-          </ion-row>
+  <ion-grid fixed *ngIf="flag" class="main login">
+    <form (ngSubmit)="login(fLogin)" #fLogin="ngForm">
+      <ion-row>
+        <ion-col>
+          <img src="/assets/avatars/av-1.png" />
+        </ion-col>
+      </ion-row>
 
-          <ion-row>
-            <ion-col>
-              <ion-list>
-                <ion-item>
-                  <ion-label>Email</ion-label>
-                  <ion-input name="email" type="email" required></ion-input>
-                </ion-item>
+      <ion-row>
+        <ion-col>
+          <ion-list>
+            <ion-item>
+              <ion-label>Email</ion-label>
+              <ion-input
+                name="email"
+                type="email"
+                [(ngModel)]="user.email"
+                required
+                pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$"
+              ></ion-input>
+            </ion-item>
 
-                <ion-item>
-                  <ion-label>Password</ion-label>
-                  <ion-input
-                    name="password"
-                    type="password"
-                    required
-                  ></ion-input>
-                </ion-item>
-              </ion-list>
-            </ion-col>
-          </ion-row>
+            <ion-item>
+              <ion-label>Password</ion-label>
+              <ion-input
+                name="password"
+                type="password"
+                [(ngModel)]="user.password"
+                required
+              ></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
 
-          <ion-row>
-            <ion-col>
-              <ion-button type="submit" color="tertiary" shape="round">
-                Login
-              </ion-button>
-            </ion-col>
-          </ion-row>
-        </form>
-      </ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button type="submit" color="tertiary" shape="round">
+            Login
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-grid>
 
-      <ion-grid fixed class="main" *ngIf="!flag">
-        <ion-row>
-          <ion-col>
-            <h3>Seleccione Avatar</h3>
-          </ion-col>
-        </ion-row>
+  <ion-grid fixed class="main" *ngIf="!flag">
+    <!-- Avatar picker -->
+    <app-avatar-picker (avatarPick)="user.avatar = $event"></app-avatar-picker>
+    <form (ngSubmit)="register(fRegister)" #fRegister="ngForm">
+      <ion-row>
+        <ion-col>
+          <ion-list>
+            <ion-item>
+              <ion-label>Email</ion-label>
+              <ion-input
+                name="email"
+                type="email"
+                [(ngModel)]="user.email"
+                required
+                pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$"
+              ></ion-input>
+            </ion-item>
 
-        <ion-row>
-          <ion-col>
-            <swiper-container [slidesPerView]="3.5">
-              <swiper-slide *ngFor="let avatar of avatars">
-                <img
-                  [ngClass]="{'pick-avatar-seleccionado': avatar.seleccionado}"
-                  class="pick-avatar"
-                  src="/assets/avatars/{{avatar.img}}"
-                  (click)="selectAvatar(avatar)"
-                />
-              </swiper-slide>
-            </swiper-container>
-          </ion-col>
-        </ion-row>
+            <ion-item>
+              <ion-label>Nombre</ion-label>
+              <ion-input
+                name="nombre"
+                type="text"
+                [(ngModel)]="user.name"
+                required
+              ></ion-input>
+            </ion-item>
 
-        <form (ngSubmit)="register(fRegister)" #fRegister="ngForm">
-          <ion-row>
-            <ion-col>
-              <ion-list>
-                <ion-item>
-                  <ion-label>Email</ion-label>
-                  <ion-input name="email" type="email" required></ion-input>
-                </ion-item>
+            <ion-item>
+              <ion-label>Password</ion-label>
+              <ion-input
+                name="password"
+                type="password"
+                [(ngModel)]="user.password"
+                required
+              ></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
 
-                <ion-item>
-                  <ion-label>Nombre</ion-label>
-                  <ion-input name="nombre" type="text" required></ion-input>
-                </ion-item>
-
-                <ion-item>
-                  <ion-label>Password</ion-label>
-                  <ion-input
-                    name="password"
-                    type="password"
-                    required
-                  ></ion-input>
-                </ion-item>
-              </ion-list>
-            </ion-col>
-          </ion-row>
-
-          <ion-row>
-            <ion-col>
-              <ion-button type="submit" color="tertiary" shape="round">
-                Crear usuario
-              </ion-button>
-            </ion-col>
-          </ion-row>
-        </form>
-      </ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button type="submit" color="tertiary" shape="round">
+            Crear usuario
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-grid>
 </ion-content>
 
 <ion-footer class="ion-no-border">
@@ -104,7 +104,7 @@
           shape="round"
           expand="full"
           size="small"
-          fill="outline"
+          [attr.fill]="flag ? 'solid' : 'outline'"
           color="tertiary"
           (click)="showLogin()"
         >
@@ -117,7 +117,7 @@
           shape="round"
           expand="full"
           size="small"
-          fill="outline"
+          [attr.fill]="!flag ? 'solid' : 'outline'"
           color="tertiary"
           (click)="showRegister()"
         >
