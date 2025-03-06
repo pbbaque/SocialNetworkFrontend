@@ -8,6 +8,14 @@ export interface PostsResponse {
   posts: Post[];
   status:number;
 }
+
+export interface PostResponse {
+  ok: boolean;
+  post: Post;
+  status:number;
+  message?:string;
+}
+
 export interface UserResponse {
   ok: boolean;
   token:string;

@@ -19,8 +19,8 @@ export class LoginPage implements OnInit {
   flag: boolean = true;
 
   user: User = {
-    email: '',
-    password: '',
+    email: 'pbbaque@gmail.com',
+    password: '12345678',
     name: '',
     avatar: ''
   }

@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage';
 import { environment } from 'src/environments/environment';
 import { UserResponse } from '../interfaces/responses.interface';
 import { User } from '../interfaces/user.interface';
+import { NavController } from '@ionic/angular';
 
 const URL = environment.url;
 
@@ -14,14 +15,9 @@ export class UserService {
 
   private _storage: Storage | null = null;
   token: string = '';
-  user: User = {
-    email: '',
-    password: '',
-    name: '',
-    avatar: ''
-  }
+  private user: User = {};
   
-  constructor( private http: HttpClient, private storage: Storage ) { 
+  constructor( private http: HttpClient, private storage: Storage, private navCtrl: NavController ) { 
     this.init();
   }
 
@@ -76,6 +72,35 @@ export class UserService {
     });
   }
 
+  update(user: User) {
+    const headers = new HttpHeaders({
+      'x-token': this.token
+    });
+
+    return new Promise( resolve => {
+      this.http.put<UserResponse>(`${URL}/user/update`, user, {headers}).subscribe( resp => {
+        if(resp.ok) {
+          this.saveToken(resp.token);
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+      }, err =>{
+        console.log(err);
+        resolve(false);
+      });
+
+    });
+  }
+
+  getuser() {
+
+    if( !this.user._id ) 
+      this.checkToken();
+
+    return { ...this.user };
+  }
+
   async saveToken( token: string ) {
     this.token = token;
     await this._storage?.set('token', token);
@@ -90,6 +115,7 @@ export class UserService {
     await this.loadToken();
 
     if (!this.token ) {
+      this.navCtrl.navigateRoot('/login');
       return Promise.resolve(false);
     }
 

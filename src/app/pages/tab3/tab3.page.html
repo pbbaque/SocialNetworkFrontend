@@ -1,72 +1,48 @@
-<ion-header no-border>
+<ion-header class="ion-no-border">
   <ion-toolbar>
+    <ion-title>
+      Actualizar Perfil
+    </ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="logOut()"
-                  color="danger">
+      <ion-button (click)="logOut()" color="danger">
         <ion-icon slot="icon-only" name="exit"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content>
-
-  <ion-row class="top-20">
-    
-    <ion-col size="12" text-center>
-      <img src="assets/avatars/av-8.png" class="img-avatar">
-    </ion-col>
-
-  </ion-row>
-
   <ion-row class="top-20">
     <ion-col size="12" text-center>
-      <ion-label>
-        <h1>Actualizar perfil</h1>
-      </ion-label>
+      <img src="assets/avatars/{{user.avatar}}" class="img-avatar" />
     </ion-col>
   </ion-row>
 
+  <app-avatar-picker [userAvatar]="user.avatar" (avatarPick)="user.avatar = $event"></app-avatar-picker>
 
-  <app-avatar-picker></app-avatar-picker>
+  <form (ngSubmit)="update(fUpdate)" #fUpdate="ngForm">
+    <ion-row>
+      <ion-col>
+        <ion-list>
+          <ion-item>
+            <ion-label>Email</ion-label>
+            <ion-input name="email" type="email" required  [(ngModel)]="user.email"></ion-input>
+          </ion-item>
 
-  <form>
-      <ion-row>
-        <ion-col>
-          
-            <ion-list>
-              
-              <ion-item>
-                <ion-label>Email</ion-label>
-                <ion-input name="email"
-                           type="email"
-                           required></ion-input>
-              </ion-item>
+          <ion-item>
+            <ion-label>Nombre</ion-label>
+            <ion-input name="nombre" type="text" required  [(ngModel)]="user.name"></ion-input>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
 
-              <ion-item>
-                <ion-label>Nombre</ion-label>
-                <ion-input name="nombre"
-                           type="text"
-                           required></ion-input>
-              </ion-item>
-
-
-            </ion-list>
-        </ion-col>
-      </ion-row>
-      
-      <ion-row>
-        <ion-col text-center>
-          <ion-button type="submit"
-                      color="tertiary"
-                      shape="round">
+    <ion-row>
+      <ion-col text-center>
+        <ion-button type="submit" color="tertiary" shape="round">
           Actualizar
         </ion-button>
       </ion-col>
     </ion-row>
-    
   </form>
-
-
 </ion-content>
