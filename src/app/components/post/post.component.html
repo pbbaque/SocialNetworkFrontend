@@ -9,21 +9,26 @@
     </ion-label>
   </ion-item>
 
-  <swiper-container pagination="true">
-    <swiper-slide>
-      <img class="image-slide" [style]="img1 | domSanitizer">
+  <swiper-container pagination="true" *ngIf="post.imgs?.length > 1 && !showCoords">
+    <swiper-slide *ngFor="let img of post.imgs">
+      <img class="image-slide" [style]="(img | image: post.user?._id) | domSanitizer">
     </swiper-slide>
-    <swiper-slide>
-      <img class="image-slide" [style]="img2 | domSanitizer">
+    
+  </swiper-container>
+  <swiper-container pagination="false" *ngIf="post.imgs?.length === 1 && !showCoords">
+    <swiper-slide  *ngFor="let img of post.imgs">
+      <img class="image-slide" [style]="(img | image: post.user?._id) | domSanitizer">
     </swiper-slide>
-    <swiper-slide>
-      <img class="image-slide" [style]="img3 | domSanitizer">
-    </swiper-slide>
+    
   </swiper-container>
 
+  <app-map [coords]="post.coords" *ngIf="post.coords && showCoords"></app-map>
+
   <ion-item lines="none">
-    <ion-icon slot="start" name="heart-outline"></ion-icon>
-    <ion-icon slot="end" name="bookmark"></ion-icon>
+    <ion-icon slot="start" [color]="like ? 'danger': ''" [name]=" like ? 'heart' : 'heart-outline'" (click)="setLike()"></ion-icon>
+
+    <ion-icon slot="end" [name]="showCoords ? 'bookmark' : 'bookmark-outline'" (click)="changeShowCoords()" ></ion-icon>
+
   </ion-item>
 
   <ion-item lines="none">

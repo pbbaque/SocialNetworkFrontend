@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { PipesModule } from '../pipes/pipes.module';
 import { AvatarPickerComponent } from './avatar-picker/avatar-picker.component';
+import { MapComponent } from './map/map.component';
 
 
 
@@ -15,11 +16,13 @@ import { AvatarPickerComponent } from './avatar-picker/avatar-picker.component';
   declarations: [
     PostsComponent,
     PostComponent,
-    AvatarPickerComponent
+    AvatarPickerComponent,
+    MapComponent
   ],
   exports: [
     PostsComponent,
-    AvatarPickerComponent
+    AvatarPickerComponent,
+    MapComponent
   ],
   imports: [
     CommonModule,

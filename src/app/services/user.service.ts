@@ -14,8 +14,8 @@ const URL = environment.url;
 export class UserService {
 
   private _storage: Storage | null = null;
-  token: string = '';
-  private user: User = {};
+  token: string | any = '';
+  private user: User | any = {};
   
   constructor( private http: HttpClient, private storage: Storage, private navCtrl: NavController ) { 
     this.init();
@@ -31,11 +31,11 @@ export class UserService {
     const data = {email:user.email, password:user.password};
 
     return new Promise( resolve => {
-      this.http.post<UserResponse>(`${URL}/user/login`, data).subscribe( resp => {
+      this.http.post<UserResponse>(`${URL}/user/login`, data).subscribe( async resp => {
         console.log(resp);
   
         if( resp.ok ){
-          this.saveToken(resp.token);
+          await this.saveToken(resp.token);
           resolve(true);
         } else {
           this.token = '';
@@ -50,6 +50,15 @@ export class UserService {
       });
     });
 
+  }
+
+  logout() {
+    this.token = null;
+    this.user = null;
+
+    this._storage?.clear();
+
+    this.navCtrl.navigateRoot('/login', {animated: true});
   }
 
   register( user: User ) {
@@ -104,6 +113,8 @@ export class UserService {
   async saveToken( token: string ) {
     this.token = token;
     await this._storage?.set('token', token);
+
+    await this.checkToken();
   }
 
   async loadToken() {

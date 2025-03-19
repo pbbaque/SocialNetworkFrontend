@@ -12,15 +12,23 @@ register();
   standalone: false
 })
 export class PostComponent  implements OnInit {
-
-  img1: string = "/assets/img/perro-1.jpg";
-  img2: string = "/assets/img/perro-2.jpg";
-  img3: string = "/assets/img/perro-3.jpg";
   
+  showCoords: boolean = false;
+  like: boolean = false;
+
   @Input() post: Post = {};
 
   constructor() { }
 
   ngOnInit() {}
+
+  changeShowCoords() {
+    this.showCoords = !this.showCoords ;
+    console.log(this.showCoords)
+  }
+
+  setLike(){
+    this.like = !this.like;
+  }
 
 }

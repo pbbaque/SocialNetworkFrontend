@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { PostResponse, PostsResponse } from '../interfaces/responses.interface';
 import { Post } from '../interfaces/post.interface';
 import { UserService } from './user.service';
+ 
 
 const URL = environment.url;
 
@@ -41,7 +42,30 @@ export class PostsService {
         resolve(false)
       );
     });
-
-    
   }
+
+  upload(file: File) {
+    console.log('Archivo a subir:', file);  // Verifica si el archivo tiene datos
+    const formData = new FormData();
+    formData.append('image', file);
+  
+    const headers = new HttpHeaders({
+      'x-token': this.userService.token
+    });
+  
+    return new Promise(resolve => {
+      this.http.post(`${URL}/post/upload`, formData, { headers }).subscribe(
+        resp => {
+          console.log('Respuesta del backend:', resp);
+          resolve(true);
+        },
+        err => {
+          console.error('Error al subir la imagen:', err);
+          resolve(false);
+        }
+      );
+    });
+  }
+  
+
 }

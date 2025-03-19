@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { User } from 'src/app/interfaces/user.interface';
+import { PostsService } from 'src/app/services/posts.service';
 import { UiService } from 'src/app/services/ui.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -16,7 +17,7 @@ export class Tab3Page implements OnInit {
     avatar: ''
   };
 
-  constructor( private userService: UserService, private uiService: UiService ) {}
+  constructor( private userService: UserService, private uiService: UiService, private postService: PostsService ) {}
 
   ngOnInit(): void {
       this.user = this.userService.getuser();
@@ -37,7 +38,8 @@ export class Tab3Page implements OnInit {
   }
 
   logOut(){
-
+    this.postService.postsPage = 0;
+    this.userService.logout();
   }
 
 }
